@@ -4,7 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Notes
 
-This project has unit tests that cover 100% coverage.
+* This project has unit tests that cover 100% coverage.
+* Find by ID and Name: this functionality uses the filtering functionality of the jsonplaceholder page, due to the limitations, you have to write the exact value to search.
 
 ## Get started
 
