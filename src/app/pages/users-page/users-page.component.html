@@ -1,0 +1,86 @@
+<div class="row mt-3" *ngIf="!loading && !statusError">
+    <div class="col">
+        <div class="card shadow p-2">
+            <h6>Filter by:</h6>
+            <form class="form-inline" name="formFilters">
+                <label class="sr-only">ID</label>
+                <input type="text" name="user-id" class="form-control mr-sm-2" placeholder="User ID" [(ngModel)]="filters.id" (input)="term$.next($event.target.value)">
+
+                <label class="sr-only">Name</label>
+                <input type="text" name="user-name" class="form-control mr-sm-2" placeholder="User name" [(ngModel)]="filters.name" (input)="term$.next($event.target.value)">
+            </form>
+        </div>
+    </div>
+</div>
+
+<ng-container *ngIf="!loading; else loader">
+    <div class="row mt-3" *ngIf="!statusError; else serverErrors">
+        <div class="col table-responsive">
+            <table class="table table-bordered table-sm shadow">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <ng-container *ngIf="users.length > 0; else notResults">
+                        <tr *ngFor="let user of users">
+                            <td>
+                                <a routerLink="/users/edit/{{ user.id }}" >
+                                    {{ user.id }}
+                                </a>
+                            </td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <a routerLink="/users/edit/{{ user.id }}">Details</a>
+                            </td>
+                        </tr>
+                    </ng-container>
+
+                    <ng-template #notResults>
+                        <tr>
+                            <td colspan="5" align="center">
+                                No users were found
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <ng-template #serverErrors>
+        <div class="row">
+            <div class="col text-center mt-5">
+                <ng-container [ngSwitch]="statusError">
+                    <div class="alert alert-warning" role="alert"*ngSwitchCase="statusErrors.NotFound" >
+                        Users not found.
+                    </div>
+                    <div class="alert alert-danger" role="alert"*ngSwitchDefault>
+                        An unexpected error has occurred.
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </ng-template>
+
+</ng-container>
+
+<ng-template #loader>
+    <div class="row">
+        <div class="col-6 text-center mt-4 mx-auto">
+            <h5>Loading user list...</h5>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

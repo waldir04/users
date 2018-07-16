@@ -1,0 +1,115 @@
+<ng-container *ngIf="!loading; else loader">
+    <div class="row card shadow mt-3 mb-5" *ngIf="!!user; else serverErrors">
+        <div class="col-12 mb-3">
+            <h4 class="mt-3">Basic information</h4>
+        </div>
+        <div class="col-12 info-container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h6>ID</h6>
+                    {{ user.id }}
+                </div>
+                <div class="col-12 col-md-6">
+                    <h6>Name</h6>
+                    {{ user.name }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h6>Username</h6>
+                    {{ user.username }}
+                </div>
+                <div class="col-12 col-md-6">
+                    <h6>Email</h6>
+                    {{ user.email }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h6>Phone</h6>
+                    {{ user.phone }}
+                </div>
+                <div class="col-12 col-md-6">
+                    <h6>Website</h6>
+                    {{ user.website }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 border-top my-3">
+            <h4 class="mt-3">Address</h4>
+        </div>
+
+        <div class="col-12 info-container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h6>Street</h6>
+                    {{ user.address.street }}
+                </div>
+                <div class="col-12 col-md-6">
+                    <h6>Suite</h6>
+                    {{ user.address.suite }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h6>City</h6>
+                    {{ user.address.city }}
+                </div>
+                <div class="col-12 col-md-6">
+                    <h6>Zipcode</h6>
+                    {{ user.address.zipcode }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 border-top my-3">
+            <h4 class="mt-3">Company</h4>
+        </div>
+
+        <div class="col-12 info-container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h6>Name</h6>
+                    {{ user.company.name }}
+                </div>
+                <div class="col-12 col-md-6">
+                    <h6>CatchPhrase</h6>
+                    {{ user.company.catchPhrase }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h6>BS</h6>
+                    {{ user.company.bs }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #serverErrors>
+        <div class="row">
+            <div class="col text-center mt-5">
+                <ng-container [ngSwitch]="statusError">
+                    <div class="alert alert-warning" role="alert"*ngSwitchCase="statusErrors.NotFound" >
+                        User not found.
+                    </div>
+                    <div class="alert alert-danger" role="alert"*ngSwitchDefault>
+                        An unexpected error has occurred.
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </ng-template>
+</ng-container>
+
+<ng-template #loader>
+    <div class="row">
+        <div class="col-6 text-center mt-4 mx-auto">
+            <h5>Loading user information...</h5>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,17 @@
+@import '~bootstrap/scss/functions', '~bootstrap/scss/variables', '~bootstrap/scss/mixins';
+
+.info-container {
+    > .row {
+        &:not(:first-child) {
+            margin-top: 1rem;
+        }
+
+        @include media-breakpoint-down(sm) {
+            > .col-12 {
+                &:nth-child(2) {
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
+}
